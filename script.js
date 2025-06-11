@@ -6,7 +6,7 @@ const karty = [
 ];
 const pula = document.getElementById("pula");
 function akcja(){
-    let pieniazki = document.getElementById("pieniazki").value;
+    let pieniazki = document.getElementById("Pieniazki").value;
     pieniazki = pieniazki + Number(pula.innerHTML);
-    console.log("pieniazki");
+    console.log(Pieniazki);
 }
