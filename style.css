@@ -133,12 +133,13 @@ section#Stats {
 }
 .card{
     color:#222;
-    box-shadow: 0 2px 2px 5px;
+    box-shadow: 4px 3px 2px 1px #222;
     width: 2em;
     height: 3em;
     background-color: white;
     text-align: center;
     display:inline-block;
+    margin: 1em;
 }
 footer {
     background: #1a1a1a;
@@ -155,4 +156,7 @@ footer {
 }
 table {
     margin-top: 0.5em;
+}
+.red{
+    color:red;
 }

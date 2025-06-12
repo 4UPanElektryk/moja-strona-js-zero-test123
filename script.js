@@ -17,7 +17,7 @@ let hajs = 0;
 let krok = 0;
 function pozyczka(){
     moneyAmmount= moneyAmmount+100;
-    money.innerHTML="kasa: " + 100;
+    money.innerHTML = "kasa: " + moneyAmmount;
 }
 function akcja(){
     if (krok==0){
@@ -34,10 +34,16 @@ function akcja(){
             equipment[1] = karty[j][i];
         }
         const newCard = document.createElement('section');
+        if (j==1 || j==3){
+            newCard.classList.add('red');
+        }
         newCard.classList.add('card');
         newCard.innerHTML = equipment[0];
         eq.appendChild(newCard);
         const newCardTwo = document.createElement('section');
+        if (j==1 || j==3){
+            newCard.classList.add('red');
+        }
         newCardTwo.classList.add('card');
         newCardTwo.innerHTML = equipment[1];
         eq.appendChild(newCardTwo);
@@ -71,6 +77,9 @@ function akcja(){
 
         tutorial.innerHTML = "Podano pierwszą kartę, podbijasz?";
         const newCard = document.createElement('section');
+        if (j==1 || j==3){
+            newCard.classList.add('red');
+        }
         newCard.classList.add('card');
         newCard.innerHTML = equipment[2];
         blat.appendChild(newCard);
@@ -99,6 +108,9 @@ function akcja(){
         }
         tutorial.innerHTML = "Podano kolejną kartę, podbijasz?";
         const newCard = document.createElement('section');
+        if (j==1 || j==3){
+            newCard.classList.add('red');
+        }
         newCard.classList.add('card');
         newCard.innerHTML = equipment[3];
         blat.appendChild(newCard);
@@ -118,6 +130,9 @@ function akcja(){
             });
         }
         const newCard = document.createElement('section');
+        if (j==1 || j==3){
+            newCard.classList.add('red');
+        }
         newCard.classList.add('card');
         newCard.innerHTML = equipment[4];
         blat.appendChild(newCard);
@@ -137,6 +152,9 @@ function akcja(){
         }
         tutorial.innerHTML = "kolejne karty, podbijasz?";
         const newCardTwo = document.createElement('section');
+        if (j==1 || j==3){
+            newCard.classList.add('red');
+        }
         newCardTwo.classList.add('card');
         newCardTwo.innerHTML = equipment[5];
         blat.appendChild(newCardTwo);
@@ -163,31 +181,37 @@ function akcja(){
         }
         tutorial.innerHTML = "Podano ostatnią kartę! Kliknij w przycisk Akcji by wzrócić pieniądze!";
         const newCard = document.createElement('section');
+        if (j==1 || j==3){
+            newCard.classList.add('red');
+        }
         newCard.classList.add('card');
         newCard.innerHTML = equipment[6];
         blat.appendChild(newCard);
 
         krok++;
     } else if (krok==6){
-        let para = false;
-        for (let i = 0; i < equipment.length; i++) {
-            for (let j = i + 1; j < equipment.length; j++) {
-                if (equipment[i] && equipment[j] && equipment[i].charAt(0) === equipment[j].charAt(0)) {
-                    tutorial.innerHTML = "PARA!, kliknij by zagrać jeszcze raz!";
-                    moneyAmmount=moneyAmmount + hajs*1.5;
-                    money.innerHTML = "kasa: " + moneyAmmount;
-                    para = true;
+        let liczba = {};
+        let max = 0;
 
-                    i = equipment.length; 
-                    break;
-                }
-                if(para) break;
+        for (let i=0; i<equipment.length; i++){
+            const cyfra = equipment[i].charAt(0);
+            liczba[cyfra] = (liczba[cyfra] || 0) + 1;
+            if (liczba[cyfra]>max){
+                max=liczba[cyfra];
             }
-            if(para) break;
         }
-        if (!para){
+        if (max == 2){
+            tutorial.innerHTML = maxCount + 'Trafiono w Parę!';
+            moneyAmmount *= 1.5;
+        } else if (max==3) {
+            tutorial.innerHTML = maxCount + 'Trafiono w Trójkę!';
+            moneyAmmount *= 3;
+        } else if (max==4){
+            tutorial.innerHTML = maxCount + 'Trafiono w Karetę!';
+            moneyAmmount *= 4;
+        } else {
             tutorial.innerHTML = "nic, kliknij by zagrać jeszcze raz!";
-            moneyAmmount=moneyAmmount + hajs*0.75;
+            moneyAmmount *= 0.5;
         }
         blat.innerHTML='';
         eq.innerHTML='';
